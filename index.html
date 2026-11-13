@@ -3,57 +3,84 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Alfabeto en Lengua de Señas Mexicana (LSM)</title>
+<title>Alfabeto LSM · Mano a Mano</title>
 <meta name="description" content="Aprende el alfabeto manual de la Lengua de Señas Mexicana, letra por letra.">
-<meta name="theme-color" content="#f6f1e9">
+<meta name="theme-color" content="#0E8A8A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f6f1e9; --ink:#1f2a33; --muted:#6b7680; --card:#ffffff;
-    --accent:#c4532d; --accent-ink:#ffffff; --line:#e4dccf;
+    --tq:#0E8A8A; --tq-d:#0A6B6B; --tq-l:#D9F1EF; --coral:#FF7A59; --coral-l:#FFE4DC;
+    --lav:#7E6BFF; --yel:#FFC857;
+    --ink:#1C2B39; --muted:#5B6E80; --bg:#F3F7F7; --card:#FFFFFF; --line:#D5E1E3;
+    --shadow:0 6px 18px rgba(28,43,57,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0E1A22; --card:#15252F; --ink:#E6F0F0; --muted:#9FB3BF; --line:#24394A;
+      --tq-l:#15252F; --shadow:0 6px 18px rgba(0,0,0,.25); }
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
   a{color:inherit}
-  .wrap{max-width:520px;margin:0 auto;padding:16px 16px calc(24px + env(safe-area-inset-bottom))}
-  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-  header .title{font-size:.9rem;color:var(--muted);line-height:1.3}
-  header .title b{color:var(--ink);display:block;font-size:1rem}
-  .btn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
-    border-radius:999px;padding:10px 16px;font:inherit;font-size:.95rem;cursor:pointer;text-decoration:none;
-    display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
+  .wrap{max-width:520px;margin:0 auto;padding:18px 18px calc(28px + env(safe-area-inset-bottom))}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand .mark{width:44px;height:44px;flex:none}
+  .brand b{display:block;font-weight:700;font-size:1.05rem;line-height:1.1}
+  .brand span{display:block;font-weight:500;font-size:.78rem;color:var(--muted)}
+  .btn{white-space:nowrap;appearance:none;border:2px solid var(--tq);background:transparent;color:var(--tq);
+    border-radius:999px;padding:9px 18px;font:inherit;font-weight:600;font-size:.92rem;cursor:pointer;text-decoration:none;
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;
+    transition:background-color .2s ease-in-out,color .2s ease-in-out,transform .2s ease-in-out}
   .btn:active{transform:scale(.97)}
-  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-  .btn[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn.primary{background:var(--tq);color:#fff}
+  .btn.primary:active{background:var(--tq-d);border-color:var(--tq-d)}
+  .btn[aria-pressed="true"]{background:var(--tq-d);border-color:var(--tq-d);color:#fff}
+  @media (prefers-color-scheme: dark){ .btn{color:#4FCFCB;border-color:#4FCFCB} .btn.primary{color:#0E1A22;background:#4FCFCB} .btn[aria-pressed="true"]{background:#4FCFCB;color:#0E1A22} }
 
-  /* Letter view */
-  .stage{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
-  .stage video{display:block;width:100%;aspect-ratio:480/854;max-height:68vh;object-fit:cover;background:#ece6dc}
-  .badge{position:absolute;top:12px;left:12px;background:var(--accent);color:#fff;border-radius:16px;
-    min-width:72px;height:72px;padding:0 14px;display:flex;align-items:center;justify-content:center;
-    font-size:2.6rem;font-weight:800;letter-spacing:.02em;box-shadow:0 2px 10px rgba(0,0,0,.15)}
-  .count{position:absolute;top:14px;right:14px;background:rgba(31,42,51,.75);color:#fff;
-    font-size:.8rem;padding:4px 10px;border-radius:999px}
-  .controls{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin-top:12px;align-items:center}
+  .stage{position:relative;background:var(--card);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+  .stage video{display:block;width:100%;aspect-ratio:480/854;max-height:66vh;object-fit:cover;background:var(--tq-l)}
+  .badge{position:absolute;top:14px;left:14px;background:var(--tq);color:#fff;border-radius:20px;
+    min-width:76px;height:76px;padding:0 16px;display:flex;align-items:center;justify-content:center;
+    font-size:2.6rem;font-weight:700;box-shadow:var(--shadow)}
+  .count{position:absolute;top:16px;right:16px;background:var(--card);color:var(--muted);
+    font-size:.8rem;font-weight:600;padding:5px 12px;border-radius:999px;box-shadow:var(--shadow)}
+  .controls{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin-top:14px;align-items:center}
   .controls .btn{width:100%}
-  .hint{text-align:center;color:var(--muted);font-size:.85rem;margin:12px 0 0}
+  .hint{text-align:center;color:var(--muted);font-size:.85rem;margin:14px 0 0;line-height:1.5}
 
-  /* Alphabet grid */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:10px}
   .grid a{display:flex;align-items:center;justify-content:center;aspect-ratio:1;background:var(--card);
-    border:1px solid var(--line);border-radius:14px;font-size:1.6rem;font-weight:700;text-decoration:none}
-  .grid a:active{background:var(--accent);color:#fff}
-  h1{font-size:1.5rem;margin:8px 0 4px}
-  .intro{color:var(--muted);margin:0 0 16px;line-height:1.45}
-  footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:20px;line-height:1.5}
+    border-radius:20px;font-size:1.6rem;font-weight:600;text-decoration:none;box-shadow:var(--shadow);
+    transition:background-color .2s ease-in-out,color .2s ease-in-out}
+  .grid a:active,.grid a:hover{background:var(--tq);color:#fff}
+  h1{font-size:1.6rem;font-weight:700;margin:6px 0 6px;line-height:1.25}
+  .intro{color:var(--muted);margin:0 0 20px;line-height:1.55}
+  footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:26px;line-height:1.6}
+  footer b{color:var(--tq);font-weight:600}
+  @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
   [hidden]{display:none!important}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="title"><b>Alfabeto LSM</b>Lengua de Señas Mexicana</div>
-    <a class="btn" id="toGrid" href="./">Ver alfabeto</a>
+    <a class="brand" href="./"><svg class="mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <path d="M30 12h58a24 24 0 0 1 24 24v38a24 24 0 0 1-24 24H44l-21 15c-3 2-6 0-5-3l4-13A24 24 0 0 1 6 74V36a24 24 0 0 1 24-24z" fill="#0E8A8A"/>
+  <g fill="#fff">
+    <rect x="39" y="44" width="43" height="42" rx="17"/>
+    <rect x="40" y="27" width="9.5" height="32" rx="4.75"/>
+    <rect x="51" y="21" width="9.5" height="36" rx="4.75"/>
+    <rect x="62" y="23" width="9.5" height="34" rx="4.75"/>
+    <rect x="73" y="31" width="9" height="28" rx="4.5"/>
+    <rect x="38" y="50" width="10" height="32" rx="5" transform="rotate(-36 43 80)"/>
+  </g>
+  <circle cx="102" cy="18" r="10" fill="#FF7A59" stroke="#fff" stroke-width="4"/>
+</svg>
+<div><b>Mano a Mano</b><span>Tus manos también hablan</span></div></a>
+    <a class="btn" id="toGrid" href="./">Alfabeto</a>
   </header>
 
   <main id="letterView" hidden>
@@ -64,19 +91,19 @@
     </div>
     <div class="controls">
       <a class="btn" id="prev" href="#">‹ Anterior</a>
-      <button class="btn" id="slow" type="button" aria-pressed="false" title="Ver más lento">🐢 Lento</button>
+      <button class="btn" id="slow" type="button" aria-pressed="false" title="Ver más lento">Lento</button>
       <a class="btn primary" id="next" href="#">Siguiente ›</a>
     </div>
-    <p class="hint">El video se repite solo. Usa “Lento” para ver bien el movimiento.</p>
+    <p class="hint">El video se repite solo. Toca “Lento” para ver bien el movimiento.</p>
   </main>
 
   <main id="gridView" hidden>
-    <h1>Alfabeto manual</h1>
-    <p class="intro">Toca una letra para ver cómo se hace en Lengua de Señas Mexicana.</p>
+    <h1>El alfabeto en LSM</h1>
+    <p class="intro">Elige una letra y mira cómo se hace en Lengua de Señas Mexicana. Practica con tu mano derecha.</p>
     <nav class="grid" id="grid" aria-label="Letras"></nav>
   </main>
 
-  <footer>Alfabeto manual de la Lengua de Señas Mexicana (LSM)</footer>
+  <footer><b>Mano a Mano</b> · Tus manos también hablan<br>Alfabeto manual de la Lengua de Señas Mexicana (LSM)</footer>
 </div>
 
 <script>
@@ -105,7 +132,7 @@
     $("letterView").hidden = true;
     $("gridView").hidden = false;
     $("toGrid").hidden = true;
-    document.title = "Alfabeto en Lengua de Señas Mexicana (LSM)";
+    document.title = "Alfabeto LSM · Mano a Mano";
     vid.removeAttribute("src"); vid.load();
   }
 
@@ -117,7 +144,7 @@
     $("toGrid").hidden = false;
     $("badge").textContent = label;
     $("count").textContent = (i + 1) + " / " + ids.length;
-    document.title = "Letra " + label + " · Alfabeto LSM";
+    document.title = "Letra " + label + " · Mano a Mano";
     vid.src = "v/" + id + ".mp4";
     vid.setAttribute("aria-label", "Seña de la letra " + label + " en LSM");
     vid.playbackRate = slow ? 0.5 : 1;
@@ -146,6 +173,7 @@
   }
   $("prev").addEventListener("click", go);
   $("next").addEventListener("click", go);
+  document.querySelector(".brand").addEventListener("click", e => { e.preventDefault(); history.pushState(null, "", "./"); showGrid(); });
   $("toGrid").addEventListener("click", e => { e.preventDefault(); history.pushState(null, "", "./"); showGrid(); });
   window.addEventListener("popstate", route);
 
