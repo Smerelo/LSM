@@ -11,14 +11,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --tq:#0E8A8A; --tq-d:#0A6B6B; --tq-l:#D9F1EF; --coral:#FF7A59; --coral-l:#FFE4DC;
+    --tq:#0E8A8A; --tq-d:#0A6B6B; --tq-l:#D9F1EF; --coral:#FF7A59; --coral-l:#FFE4DC; --coral-d:#C2410C;
     --lav:#7E6BFF; --yel:#FFC857;
     --ink:#1C2B39; --muted:#5B6E80; --bg:#F3F7F7; --card:#FFFFFF; --line:#D5E1E3;
     --shadow:0 6px 18px rgba(28,43,57,.06);
   }
   @media (prefers-color-scheme: dark){
     :root{ --bg:#0E1A22; --card:#15252F; --ink:#E6F0F0; --muted:#9FB3BF; --line:#24394A;
-      --tq-l:#15252F; --shadow:0 6px 18px rgba(0,0,0,.25); }
+      --tq-l:#1D3440; --coral-l:#3A2A26; --coral-d:#FF9C82; --shadow:0 6px 18px rgba(0,0,0,.25); }
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--ink);
@@ -60,6 +60,46 @@
   .intro{color:var(--muted);margin:0 0 20px;line-height:1.55}
   footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:26px;line-height:1.6}
   footer b{color:var(--tq);font-weight:600}
+
+  /* Juego */
+  .cta{display:flex;align-items:center;gap:14px;margin:0 0 22px;padding:16px 18px;background:var(--card);border-radius:24px;
+    box-shadow:var(--shadow);text-decoration:none}
+  .cta .ico{flex:none;width:52px;height:52px;border-radius:16px;background:var(--coral-l);display:flex;align-items:center;justify-content:center}
+  .cta b{display:block;font-weight:600;font-size:1.02rem}
+  .cta span{display:block;color:var(--muted);font-size:.86rem;line-height:1.4}
+  .cta .go{margin-left:auto;flex:none;color:var(--coral);font-weight:700;font-size:1.4rem}
+  .panel{background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:20px}
+  .field{display:flex;flex-direction:column;gap:8px;margin:16px 0 12px}
+  .field label{font-weight:600;font-size:.92rem}
+  .field input{font:inherit;font-size:1.1rem;padding:12px 16px;border-radius:999px;border:2px solid var(--line);
+    background:var(--bg);color:var(--ink);min-height:48px;outline:none}
+  .field input:focus{border-color:var(--tq)}
+  .msg{min-height:1.4em;color:var(--coral-d);font-size:.88rem;margin:0 0 10px;font-weight:500}
+  .btn.coral{background:var(--coral);border-color:var(--coral);color:#fff}
+  .target{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}
+  .target span{background:var(--tq-l);color:var(--tq-d);font-weight:700;border-radius:12px;padding:4px 10px;font-size:1.05rem}
+  .status{color:var(--muted);font-size:.9rem;margin:6px 0 14px;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;margin:0 0 16px}
+  .sign{position:relative;appearance:none;border:3px solid transparent;background:var(--card);border-radius:22px;padding:6px;
+    box-shadow:var(--shadow);cursor:pointer;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:2px;
+    min-height:44px;transition:transform .25s ease-in-out,border-color .2s ease-in-out}
+  .sign img{width:100%;aspect-ratio:1;display:block;border-radius:16px}
+  .sign .pos{font-size:.72rem;color:var(--muted);font-weight:600}
+  .sign .lt{font-size:.95rem;font-weight:700;color:var(--tq-d);min-height:1.3em}
+  .sign[aria-pressed="true"]{border-color:var(--coral);transform:translateY(-4px)}
+  .sign.ok::after{content:"✓";position:absolute;top:-6px;right:-6px;width:26px;height:26px;border-radius:999px;background:var(--tq);
+    color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+  .sign.swap{animation:pop .4s ease-in-out}
+  @keyframes pop{50%{transform:scale(.92)}}
+  .row{display:flex;flex-wrap:wrap;gap:8px}
+  .win{text-align:center;padding:26px 20px}
+  .win h2{font-size:1.5rem;margin:10px 0 6px}
+  .win p{color:var(--muted);margin:0 0 18px;line-height:1.5}
+  .win .row{justify-content:center}
+  .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+  .confetti i{position:absolute;top:-20px;width:10px;height:14px;border-radius:3px;animation:fall 2.6s ease-in-out forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+  @media (prefers-reduced-motion: reduce){ .confetti{display:none} .sign,.sign.swap{animation:none!important;transform:none!important} }
   @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
   [hidden]{display:none!important}
 </style>
@@ -100,7 +140,61 @@
   <main id="gridView" hidden>
     <h1>El alfabeto en LSM</h1>
     <p class="intro">Elige una letra y mira cómo se hace en Lengua de Señas Mexicana. Practica con tu mano derecha.</p>
+    <a class="cta" id="toGame" href="?juego">
+      <span class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF7A59" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M11 11.5V4a1.5 1.5 0 0 1 3 0v7.5"/><path d="M14 11.5V5.5a1.5 1.5 0 0 1 3 0v8"/><path d="M17 10a1.5 1.5 0 0 1 3 0v4a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7l-2.6-4a1.6 1.6 0 0 1 2.6-1.8L8 14"/></svg></span>
+      <span><b>Juego: deletrea tu nombre</b><span>Ordena las señas de tu nombre</span></span>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
     <nav class="grid" id="grid" aria-label="Letras"></nav>
+  </main>
+
+
+  <main id="gameView" hidden>
+    <section id="gStart">
+      <h1>Deletrea tu nombre</h1>
+      <p class="intro">Escribe tu nombre y te lo mostramos en señas, pero revuelto. Ordena las señas hasta formar tu nombre.</p>
+      <form class="panel" id="gForm" novalidate>
+        <div class="field">
+          <label for="gName">Tu nombre</label>
+          <input id="gName" name="nombre" autocomplete="given-name" maxlength="20" placeholder="Por ejemplo: Sofía" required>
+        </div>
+        <p class="msg" id="gMsg" role="alert"></p>
+        <button class="btn primary" type="submit" style="width:100%">Empezar</button>
+      </form>
+    </section>
+
+    <section id="gPlay" hidden>
+      <h1>Ordena tu nombre</h1>
+      <div class="target" id="gTarget" aria-label="Tu nombre"></div>
+      <p class="status" id="gStatus" aria-live="polite">Toca una seña y luego otra para cambiarlas de lugar.</p>
+      <div class="cards" id="gCards"></div>
+      <div class="row">
+        <button class="btn primary" type="button" id="gCheck">Comprobar</button>
+        <button class="btn" type="button" id="gHint" aria-pressed="false">Ver letras</button>
+        <button class="btn" type="button" id="gNew">Otro nombre</button>
+      </div>
+    </section>
+
+    <section id="gWin" class="panel win" hidden>
+      <svg width="132" height="150" viewBox="0 0 132 150" role="img" aria-label="Medalla de logro">
+        <path d="M44 92 L30 146 L50 134 L60 150 L66 100Z M88 92 L102 146 L82 134 L72 150 L66 100Z" fill="#FF7A59"/>
+        <path d="M66 6 l9 7 11-2 4 10 10 4-2 11 7 9-7 9 2 11-10 4-4 10-11-2-9 7-9-7-11 2-4-10-10-4 2-11-7-9 7-9-2-11 10-4 4-10 11 2z" fill="#0E8A8A"/>
+        <circle cx="66" cy="58" r="34" fill="#0A6B6B"/>
+        <g fill="#fff">
+          <rect x="50" y="56" width="31" height="30" rx="12"/>
+          <rect x="50.5" y="38" width="7" height="24" rx="3.5"/><rect x="58.5" y="33" width="7" height="27" rx="3.5"/>
+          <rect x="66.5" y="35" width="7" height="25" rx="3.5"/><rect x="74.5" y="41" width="6.5" height="20" rx="3.25"/>
+          <rect x="45" y="62" width="7" height="22" rx="3.5" transform="rotate(-36 48.5 80)"/>
+        </g>
+        <circle cx="20" cy="30" r="4" fill="#FFC857"/><circle cx="114" cy="26" r="4" fill="#7E6BFF"/><circle cx="118" cy="88" r="3.5" fill="#FFC857"/>
+      </svg>
+      <h2 id="gWinTitle">¡Lo lograste!</h2>
+      <p id="gWinText"></p>
+      <div class="row">
+        <button class="btn primary" type="button" id="gAgain">Jugar otra vez</button>
+        <button class="btn" type="button" id="gOther">Otro nombre</button>
+      </div>
+    </section>
   </main>
 
   <footer><b>Mano a Mano</b> · Tus manos también hablan<br>Alfabeto manual de la Lengua de Señas Mexicana (LSM)</footer>
@@ -130,6 +224,7 @@
 
   function showGrid(){
     $("letterView").hidden = true;
+    $("gameView").hidden = true;
     $("gridView").hidden = false;
     $("toGrid").hidden = true;
     document.title = "Alfabeto LSM · Mano a Mano";
@@ -140,6 +235,7 @@
     const i = ids.indexOf(id);
     const label = LETTERS[i][1];
     $("gridView").hidden = true;
+    $("gameView").hidden = true;
     $("letterView").hidden = false;
     $("toGrid").hidden = false;
     $("badge").textContent = label;
@@ -159,7 +255,9 @@
   }
 
   function route(){
-    const id = normalize(new URLSearchParams(location.search).get("l"));
+    const q = new URLSearchParams(location.search);
+    if (q.has("juego")) return showGame();
+    const id = normalize(q.get("l"));
     id ? showLetter(id) : showGrid();
   }
 
@@ -202,6 +300,121 @@
     a.addEventListener("click", go);
     grid.appendChild(a);
   });
+
+
+  // ---------- Juego: deletrea tu nombre ----------
+  const LABEL = Object.fromEntries(LETTERS);
+  let target = [], order = [], picked = null, moves = 0, hints = false, playerName = "";
+
+  function showGame(){
+    $("gridView").hidden = true; $("letterView").hidden = true; $("gameView").hidden = false;
+    $("toGrid").hidden = false;
+    document.title = "Deletrea tu nombre · Mano a Mano";
+    vid.removeAttribute("src"); vid.load();
+    if (!target.length) showStart();
+  }
+  function showStart(){
+    target = []; $("gStart").hidden = false; $("gPlay").hidden = true; $("gWin").hidden = true;
+    $("gMsg").textContent = "";
+  }
+
+  // "Guillermo" -> ["g","u","i","ll","e","r","m","o"]; accents dropped, Ñ kept, LL and RR count as one sign
+  function toSigns(name){
+    const clean = name.toUpperCase().replace(/Ñ/g, "\u0001").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\u0001/g, "Ñ");
+    const out = [];
+    for (let i = 0; i < clean.length; i++){
+      const two = clean.slice(i, i + 2);
+      if (two === "LL" || two === "RR"){ out.push(two.toLowerCase()); i++; continue; }
+      const c = clean[i];
+      if (c === "Ñ") out.push("nn");
+      else if (c >= "A" && c <= "Z") out.push(c.toLowerCase());
+    }
+    return out;
+  }
+
+  function shuffled(arr){
+    const a = arr.map((id, i) => ({ id, key: i }));
+    if (new Set(arr).size < 2) return a;
+    do {
+      for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    } while (a.every((c, i) => c.id === arr[i]));
+    return a;
+  }
+
+  function startRound(){
+    order = shuffled(target); picked = null; moves = 0;
+    $("gStart").hidden = true; $("gWin").hidden = true; $("gPlay").hidden = false;
+    $("gTarget").innerHTML = "";
+    target.forEach(id => { const s = document.createElement("span"); s.textContent = LABEL[id]; $("gTarget").appendChild(s); });
+    $("gStatus").textContent = "Toca una seña y luego otra para cambiarlas de lugar.";
+    renderCards();
+  }
+
+  function renderCards(marks){
+    const box = $("gCards"); box.innerHTML = "";
+    order.forEach((card, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "sign"; b.dataset.i = i;
+      b.setAttribute("aria-pressed", String(picked === i));
+      if (marks && card.id === target[i]) b.classList.add("ok");
+      const name = hints ? "Seña de la letra " + LABEL[card.id] : "Seña " + (i + 1);
+      b.setAttribute("aria-label", name + ", posición " + (i + 1) + (marks && card.id === target[i] ? ", en su lugar" : ""));
+      b.innerHTML = '<span class="pos" aria-hidden="true">' + (i + 1) + '</span><img alt="" src="h/' + card.id + '.svg"><span class="lt" aria-hidden="true">' + (hints ? LABEL[card.id] : "") + '</span>';
+      b.addEventListener("click", () => pick(i));
+      box.appendChild(b);
+    });
+  }
+
+  function pick(i){
+    if (picked === null){ picked = i; renderCards(); $("gStatus").textContent = "Ahora toca la seña con la que quieres cambiarla."; return; }
+    if (picked === i){ picked = null; renderCards(); $("gStatus").textContent = "Toca una seña y luego otra para cambiarlas de lugar."; return; }
+    [order[picked], order[i]] = [order[i], order[picked]];
+    const a = picked, b = i; picked = null; moves++;
+    renderCards();
+    [a, b].forEach(k => { const el = $("gCards").children[k]; if (el){ el.classList.add("swap"); } });
+    if (order.every((c, k) => c.id === target[k])) return setTimeout(win, 450);
+    $("gStatus").textContent = "Movimientos: " + moves + ". Sigue así.";
+  }
+
+  function check(){
+    const ok = order.filter((c, k) => c.id === target[k]).length;
+    renderCards(true);
+    $("gStatus").textContent = ok + " de " + target.length + " señas están en su lugar. Las que tienen ✓ ya están bien.";
+  }
+
+  function win(){
+    $("gPlay").hidden = true; $("gWin").hidden = false;
+    $("gWinTitle").textContent = "¡Lo lograste, " + playerName + "!";
+    $("gWinText").textContent = "Ordenaste tu nombre en LSM en " + moves + (moves === 1 ? " movimiento." : " movimientos.") + " Ahora intenta hacerlo con tu mano.";
+    $("gAgain").focus();
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches){
+      const c = document.createElement("div"); c.className = "confetti"; c.setAttribute("aria-hidden", "true");
+      const colors = ["#FF7A59", "#0E8A8A", "#7E6BFF", "#FFC857"];
+      for (let k = 0; k < 40; k++){
+        const p = document.createElement("i");
+        p.style.left = Math.random() * 100 + "vw"; p.style.background = colors[k % 4];
+        p.style.animationDelay = (Math.random() * 0.6) + "s"; c.appendChild(p);
+      }
+      document.body.appendChild(c); setTimeout(() => c.remove(), 3600);
+    }
+  }
+
+  $("gForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const raw = $("gName").value.trim();
+    const signs = toSigns(raw);
+    if (signs.length < 2) return void ($("gMsg").textContent = "Escribe un nombre con al menos 2 letras.");
+    if (signs.length > 12) return void ($("gMsg").textContent = "Usa un nombre de hasta 12 letras. Prueba solo con tu primer nombre.");
+    if (new Set(signs).size < 2) return void ($("gMsg").textContent = "Ese nombre no se puede revolver. Prueba con otro.");
+    playerName = raw.split(/\s+/)[0]; playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
+    target = signs; startRound();
+  });
+  $("gCheck").addEventListener("click", check);
+  $("gHint").addEventListener("click", () => { hints = !hints; $("gHint").setAttribute("aria-pressed", String(hints)); $("gHint").textContent = hints ? "Ocultar letras" : "Ver letras"; renderCards(); });
+  $("gNew").addEventListener("click", () => { showStart(); $("gName").focus(); });
+  $("gOther").addEventListener("click", () => { showStart(); $("gName").value = ""; $("gName").focus(); });
+  $("gAgain").addEventListener("click", startRound);
+  $("toGame").addEventListener("click", e => { e.preventDefault(); history.pushState(null, "", "?juego"); showGame(); });
 
   route();
 </script>
