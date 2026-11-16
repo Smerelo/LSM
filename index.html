@@ -77,21 +77,29 @@
   .field input:focus{border-color:var(--tq)}
   .msg{min-height:1.4em;color:var(--coral-d);font-size:.88rem;margin:0 0 10px;font-weight:500}
   .btn.coral{background:var(--coral);border-color:var(--coral);color:#fff}
-  .target{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}
-  .target span{background:var(--tq-l);color:var(--tq-d);font-weight:700;border-radius:12px;padding:4px 10px;font-size:1.05rem}
-  .status{color:var(--muted);font-size:.9rem;margin:6px 0 14px;line-height:1.5}
-  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;margin:0 0 16px}
-  .sign{position:relative;appearance:none;border:3px solid transparent;background:var(--card);border-radius:22px;padding:6px;
+  .status{color:var(--muted);font-size:.9rem;margin:6px 0 16px;line-height:1.5;min-height:1.5em}
+  .slots{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 18px}
+  .slot{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .slot .box{width:60px;height:60px;border-radius:16px;border:2px dashed var(--line);background:var(--card);display:block;overflow:hidden;
+    transition:border-color .2s ease-in-out}
+  .slot .box img{width:100%;height:100%;display:block;object-fit:contain;background:#fff}
+  .slot .lt{font-weight:700;font-size:1rem;color:var(--muted)}
+  .slot.now .box{border:3px solid var(--coral)}
+  .slot.now .lt{color:var(--coral-d)}
+  .slot.done .box{border:2px solid var(--tq)}
+  .slot.done .lt{color:var(--tq-d)}
+  .pickline{text-align:center;margin:0 0 12px;font-weight:500}
+  .pickline b{display:inline-block;background:var(--coral-l);color:var(--coral-d);border-radius:10px;padding:1px 10px;font-weight:700}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px;margin:0 0 18px}
+  .sign{position:relative;appearance:none;border:3px solid transparent;background:var(--card);border-radius:20px;padding:6px;
     box-shadow:var(--shadow);cursor:pointer;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:2px;
-    min-height:44px;transition:transform .25s ease-in-out,border-color .2s ease-in-out}
-  .sign img{width:100%;aspect-ratio:1;display:block;border-radius:16px;background:#fff;object-fit:contain}
-  .sign .pos{font-size:.72rem;color:var(--muted);font-weight:600}
-  .sign .lt{font-size:.95rem;font-weight:700;color:var(--tq-d);min-height:1.3em}
-  .sign[aria-pressed="true"]{border-color:var(--coral);transform:translateY(-4px)}
-  .sign.ok::after{content:"✓";position:absolute;top:-6px;right:-6px;width:26px;height:26px;border-radius:999px;background:var(--tq);
-    color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
-  .sign.swap{animation:pop .4s ease-in-out}
-  @keyframes pop{50%{transform:scale(.92)}}
+    min-height:44px;transition:transform .2s ease-in-out,border-color .2s ease-in-out,opacity .2s ease-in-out}
+  .sign img{width:100%;aspect-ratio:1;display:block;border-radius:14px;background:#fff;object-fit:contain}
+  .sign .lt{font-size:.9rem;font-weight:700;color:var(--tq-d);min-height:1.2em}
+  .sign:active{transform:scale(.96)}
+  .sign.used{opacity:.22;box-shadow:none;cursor:default}
+  .sign.no{border-color:var(--coral);animation:shake .4s ease-in-out}
+  @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
   .row{display:flex;flex-wrap:wrap;gap:8px}
   .win{text-align:center;padding:26px 20px}
   .win h2{font-size:1.5rem;margin:10px 0 6px}
@@ -100,7 +108,7 @@
   .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
   .confetti i{position:absolute;top:-20px;width:10px;height:14px;border-radius:3px;animation:fall 2.6s ease-in-out forwards}
   @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
-  @media (prefers-reduced-motion: reduce){ .confetti{display:none} .sign,.sign.swap{animation:none!important;transform:none!important} }
+  @media (prefers-reduced-motion: reduce){ .confetti{display:none} .sign{animation:none!important;transform:none!important} }
   @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
   [hidden]{display:none!important}
 </style>
@@ -132,7 +140,7 @@
     <p class="intro">Elige una letra y mira cómo se hace en Lengua de Señas Mexicana. Practica con tu mano derecha.</p>
     <a class="cta" id="toGame" href="?juego">
       <span class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF7A59" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M11 11.5V4a1.5 1.5 0 0 1 3 0v7.5"/><path d="M14 11.5V5.5a1.5 1.5 0 0 1 3 0v8"/><path d="M17 10a1.5 1.5 0 0 1 3 0v4a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7l-2.6-4a1.6 1.6 0 0 1 2.6-1.8L8 14"/></svg></span>
-      <span><b>Juego: deletrea tu nombre</b><span>Ordena las señas de tu nombre</span></span>
+      <span><b>Juego: deletrea tu nombre</b><span>Elige la seña de cada letra</span></span>
       <span class="go" aria-hidden="true">›</span>
     </a>
     <nav class="grid" id="grid" aria-label="Letras"></nav>
@@ -142,7 +150,7 @@
   <main id="gameView" hidden>
     <section id="gStart">
       <h1>Deletrea tu nombre</h1>
-      <p class="intro">Escribe tu nombre y te lo mostramos en señas, pero revuelto. Ordena las señas hasta formar tu nombre.</p>
+      <p class="intro">Escribe tu nombre. Te damos una casilla por letra y las señas revueltas: elige la seña de cada letra, una por una.</p>
       <form class="panel" id="gForm" novalidate>
         <div class="field">
           <label for="gName">Tu nombre</label>
@@ -154,12 +162,12 @@
     </section>
 
     <section id="gPlay" hidden>
-      <h1>Ordena tu nombre</h1>
-      <div class="target" id="gTarget" aria-label="Tu nombre"></div>
-      <p class="status" id="gStatus" aria-live="polite">Toca una seña y luego otra para cambiarlas de lugar.</p>
+      <h1>Deletrea tu nombre</h1>
+      <p class="status" id="gStatus" aria-live="polite"></p>
+      <div class="slots" id="gSlots" role="list" aria-label="Letras de tu nombre"></div>
+      <p class="pickline">Elige la seña de la letra <b id="gNext"></b></p>
       <div class="cards" id="gCards"></div>
       <div class="row">
-        <button class="btn primary" type="button" id="gCheck">Comprobar</button>
         <button class="btn" type="button" id="gHint" aria-pressed="false">Ver letras</button>
         <button class="btn" type="button" id="gNew">Otro nombre</button>
       </div>
@@ -294,7 +302,7 @@
 
   // ---------- Juego: deletrea tu nombre ----------
   const LABEL = Object.fromEntries(LETTERS);
-  let target = [], order = [], picked = null, moves = 0, hints = false, playerName = "";
+  let target = [], order = [], pos = 0, errors = 0, hints = false, playerName = "";
 
   function showGame(){
     $("gridView").hidden = true; $("letterView").hidden = true; $("gameView").hidden = false;
@@ -332,50 +340,54 @@
   }
 
   function startRound(){
-    order = shuffled(target); picked = null; moves = 0;
+    order = shuffled(target).map(c => ({ ...c, used: false })); pos = 0; errors = 0;
     $("gStart").hidden = true; $("gWin").hidden = true; $("gPlay").hidden = false;
-    $("gTarget").innerHTML = "";
-    target.forEach(id => { const s = document.createElement("span"); s.textContent = LABEL[id]; $("gTarget").appendChild(s); });
-    $("gStatus").textContent = "Toca una seña y luego otra para cambiarlas de lugar.";
-    renderCards();
+    $("gStatus").textContent = "Toca la seña que corresponde a cada letra, en orden.";
+    render();
   }
 
-  function renderCards(marks){
+  function render(wrong){
+    const slots = $("gSlots"); slots.innerHTML = "";
+    target.forEach((id, i) => {
+      const d = document.createElement("div");
+      d.className = "slot" + (i < pos ? " done" : i === pos ? " now" : "");
+      d.setAttribute("role", "listitem");
+      d.setAttribute("aria-label", "Letra " + LABEL[id] + (i < pos ? ", lista" : i === pos ? ", sigue esta" : ", pendiente"));
+      d.innerHTML = '<span class="box">' + (i < pos ? '<img alt="" src="h/' + id + '.png">' : "") + '</span><span class="lt" aria-hidden="true">' + LABEL[id] + '</span>';
+      slots.appendChild(d);
+    });
+    $("gNext").textContent = pos < target.length ? LABEL[target[pos]] : "";
     const box = $("gCards"); box.innerHTML = "";
-    order.forEach((card, i) => {
+    order.forEach((card, k) => {
       const b = document.createElement("button");
-      b.type = "button"; b.className = "sign"; b.dataset.i = i;
-      b.setAttribute("aria-pressed", String(picked === i));
-      if (marks && card.id === target[i]) b.classList.add("ok");
-      const name = hints ? "Seña de la letra " + LABEL[card.id] : "Seña " + (i + 1);
-      b.setAttribute("aria-label", name + ", posición " + (i + 1) + (marks && card.id === target[i] ? ", en su lugar" : ""));
-      b.innerHTML = '<span class="pos" aria-hidden="true">' + (i + 1) + '</span><img alt="" src="h/' + card.id + '.png"><span class="lt" aria-hidden="true">' + (hints ? LABEL[card.id] : "") + '</span>';
-      b.addEventListener("click", () => pick(i));
+      b.type = "button"; b.className = "sign" + (card.used ? " used" : "") + (wrong === k ? " no" : "");
+      b.disabled = card.used;
+      b.setAttribute("aria-label", hints ? "Seña de la letra " + LABEL[card.id] : "Seña " + (k + 1));
+      b.innerHTML = '<img alt="" src="h/' + card.id + '.png"><span class="lt" aria-hidden="true">' + (hints ? LABEL[card.id] : "") + '</span>';
+      b.addEventListener("click", () => pick(k));
       box.appendChild(b);
     });
   }
 
-  function pick(i){
-    if (picked === null){ picked = i; renderCards(); $("gStatus").textContent = "Ahora toca la seña con la que quieres cambiarla."; return; }
-    if (picked === i){ picked = null; renderCards(); $("gStatus").textContent = "Toca una seña y luego otra para cambiarlas de lugar."; return; }
-    [order[picked], order[i]] = [order[i], order[picked]];
-    const a = picked, b = i; picked = null; moves++;
-    renderCards();
-    [a, b].forEach(k => { const el = $("gCards").children[k]; if (el){ el.classList.add("swap"); } });
-    if (order.every((c, k) => c.id === target[k])) return setTimeout(win, 450);
-    $("gStatus").textContent = "Movimientos: " + moves + ". Sigue así.";
-  }
-
-  function check(){
-    const ok = order.filter((c, k) => c.id === target[k]).length;
-    renderCards(true);
-    $("gStatus").textContent = ok + " de " + target.length + " señas están en su lugar. Las que tienen ✓ ya están bien.";
+  function pick(k){
+    const card = order[k];
+    if (card.used || pos >= target.length) return;
+    if (card.id === target[pos]){
+      card.used = true; pos++;
+      render();
+      if (pos === target.length) return setTimeout(win, 500);
+      $("gStatus").textContent = "¡Bien! Vas " + pos + " de " + target.length + ".";
+    } else {
+      errors++;
+      render(k);
+      $("gStatus").textContent = "Esa no es la " + LABEL[target[pos]] + ". Intenta con otra.";
+    }
   }
 
   function win(){
     $("gPlay").hidden = true; $("gWin").hidden = false;
     $("gWinTitle").textContent = "¡Lo lograste, " + playerName + "!";
-    $("gWinText").textContent = "Ordenaste tu nombre en LSM en " + moves + (moves === 1 ? " movimiento." : " movimientos.") + " Ahora intenta hacerlo con tu mano.";
+    $("gWinText").textContent = "Deletreaste tu nombre en LSM " + (errors === 0 ? "sin errores." : errors === 1 ? "con 1 error." : "con " + errors + " errores.") + " Ahora intenta hacerlo con tu mano.";
     $("gAgain").focus();
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches){
       const c = document.createElement("div"); c.className = "confetti"; c.setAttribute("aria-hidden", "true");
@@ -399,8 +411,7 @@
     playerName = raw.split(/\s+/)[0]; playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
     target = signs; startRound();
   });
-  $("gCheck").addEventListener("click", check);
-  $("gHint").addEventListener("click", () => { hints = !hints; $("gHint").setAttribute("aria-pressed", String(hints)); $("gHint").textContent = hints ? "Ocultar letras" : "Ver letras"; renderCards(); });
+  $("gHint").addEventListener("click", () => { hints = !hints; $("gHint").setAttribute("aria-pressed", String(hints)); $("gHint").textContent = hints ? "Ocultar letras" : "Ver letras"; render(); });
   $("gNew").addEventListener("click", () => { showStart(); $("gName").focus(); });
   $("gOther").addEventListener("click", () => { showStart(); $("gName").value = ""; $("gName").focus(); });
   $("gAgain").addEventListener("click", startRound);
