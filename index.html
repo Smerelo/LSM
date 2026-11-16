@@ -83,7 +83,7 @@
   .sign{position:relative;appearance:none;border:3px solid transparent;background:var(--card);border-radius:22px;padding:6px;
     box-shadow:var(--shadow);cursor:pointer;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:2px;
     min-height:44px;transition:transform .25s ease-in-out,border-color .2s ease-in-out}
-  .sign img{width:100%;aspect-ratio:1;display:block;border-radius:16px}
+  .sign img{width:100%;aspect-ratio:1;display:block;border-radius:16px;background:#fff;object-fit:contain}
   .sign .pos{font-size:.72rem;color:var(--muted);font-weight:600}
   .sign .lt{font-size:.95rem;font-weight:700;color:var(--tq-d);min-height:1.3em}
   .sign[aria-pressed="true"]{border-color:var(--coral);transform:translateY(-4px)}
@@ -359,7 +359,7 @@
       if (marks && card.id === target[i]) b.classList.add("ok");
       const name = hints ? "Seña de la letra " + LABEL[card.id] : "Seña " + (i + 1);
       b.setAttribute("aria-label", name + ", posición " + (i + 1) + (marks && card.id === target[i] ? ", en su lugar" : ""));
-      b.innerHTML = '<span class="pos" aria-hidden="true">' + (i + 1) + '</span><img alt="" src="h/' + card.id + '.svg"><span class="lt" aria-hidden="true">' + (hints ? LABEL[card.id] : "") + '</span>';
+      b.innerHTML = '<span class="pos" aria-hidden="true">' + (i + 1) + '</span><img alt="" src="h/' + card.id + '.png"><span class="lt" aria-hidden="true">' + (hints ? LABEL[card.id] : "") + '</span>';
       b.addEventListener("click", () => pick(i));
       box.appendChild(b);
     });
