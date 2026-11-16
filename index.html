@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Alfabeto LSM · Mano a Mano</title>
 <meta name="description" content="Aprende el alfabeto manual de la Lengua de Señas Mexicana, letra por letra.">
+<link rel="icon" type="image/png" href="logo.png">
 <meta name="theme-color" content="#0E8A8A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +28,7 @@
   .wrap{max-width:520px;margin:0 auto;padding:18px 18px calc(28px + env(safe-area-inset-bottom))}
   header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
   .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-  .brand .mark{width:44px;height:44px;flex:none}
+  .brand .mark{width:44px;height:44px;flex:none;object-fit:contain}
   .brand b{display:block;font-weight:700;font-size:1.05rem;line-height:1.1}
   .brand span{display:block;font-weight:500;font-size:.78rem;color:var(--muted)}
   .btn{white-space:nowrap;appearance:none;border:2px solid var(--tq);background:transparent;color:var(--tq);
@@ -107,18 +108,7 @@
 <body>
 <div class="wrap">
   <header>
-    <a class="brand" href="./"><svg class="mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-  <path d="M30 12h58a24 24 0 0 1 24 24v38a24 24 0 0 1-24 24H44l-21 15c-3 2-6 0-5-3l4-13A24 24 0 0 1 6 74V36a24 24 0 0 1 24-24z" fill="#0E8A8A"/>
-  <g fill="#fff">
-    <rect x="39" y="44" width="43" height="42" rx="17"/>
-    <rect x="40" y="27" width="9.5" height="32" rx="4.75"/>
-    <rect x="51" y="21" width="9.5" height="36" rx="4.75"/>
-    <rect x="62" y="23" width="9.5" height="34" rx="4.75"/>
-    <rect x="73" y="31" width="9" height="28" rx="4.5"/>
-    <rect x="38" y="50" width="10" height="32" rx="5" transform="rotate(-36 43 80)"/>
-  </g>
-  <circle cx="102" cy="18" r="10" fill="#FF7A59" stroke="#fff" stroke-width="4"/>
-</svg>
+    <a class="brand" href="./"><img class="mark" src="logo.png" alt="" width="44" height="44">
 <div><b>Mano a Mano</b><span>Tus manos también hablan</span></div></a>
     <a class="btn" id="toGrid" href="./">Alfabeto</a>
   </header>
